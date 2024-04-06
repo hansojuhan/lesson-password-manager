@@ -2,8 +2,10 @@ class UserPassword < ApplicationRecord
   # Owner can do everythin
   # Editor can update password
   # Viewer can view
-  ROLES = %w{owner editor viewer}
+  ROLES = %w{viewer editor owner}
   # The %w{} syntax is used for creating an array of strings
+  
+  attribute :role, default: :viewer
 
   belongs_to :user
   belongs_to :password
