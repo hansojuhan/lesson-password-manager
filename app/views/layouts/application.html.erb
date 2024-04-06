@@ -12,18 +12,15 @@
   </head>
 
   <body>
-    <nav>
-      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-      <% if user_signed_in? %>
-        Currently signed in as: <%= current_user.email %>
-      <% else %>
-        <%= link_to "Sign in", new_user_session_path %>
-      <% end %>
-    </nav>
-    <main class="prose mx-auto mt-28 px-5 ">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= yield %>
+    <main class="container mx-auto">
+      <div class="prose max-w-none px-5">
+
+        <%= render "shared/flash" %>
+        <%= render "shared/nav" %>
+        
+        <%= yield %>
+    
+      </div> 
     </main>
   </body>
 </html>
