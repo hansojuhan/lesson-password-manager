@@ -1,6 +1,9 @@
 class PasswordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_password, except: [ :index, :new, :create ]
+  before_action :require_editor_permissions, only: [ :edit, :update, :destroy ]
+  before_action :require_owner_permissions, only: [ :destroy ]
+
   def index 
     # Get all passwords
     @passwords = current_user.passwords # This joins the 2 tables and gives user passwords
@@ -53,5 +56,12 @@ class PasswordsController < ApplicationController
 
   def set_password
     @password = current_user.passwords.find(params[:id])
+  end
+
+  def require_editor_permissions
+    redirect_to @password unless @password.editable_by?(current_user)
+  end
+  def require_owner_permissions
+    redirect_to @password unless @password.deletable_by?(current_user)
   end
 end
