@@ -1,1 +1,7 @@
-yeah
+<%= link_to "New password", new_password_path %>
+
+Passwords:
+
+<%= @passwords. each do |password| %>
+  <%= password %>
+<% end %>
