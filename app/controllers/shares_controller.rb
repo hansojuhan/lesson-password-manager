@@ -4,7 +4,6 @@ class SharesController < ApplicationController
 
   def new
     # Exclude all users already having this password
-    @users = User.all.excluding(@password.users)
     @user_password = UserPassword.new
   end
 
@@ -31,6 +30,6 @@ class SharesController < ApplicationController
   end
 
   def user_password_params
-    params.require(:user_password).permit(:user_id)
+    params.require(:user_password).permit(:user_id, :role)
   end
 end

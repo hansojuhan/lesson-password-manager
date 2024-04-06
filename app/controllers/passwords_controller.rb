@@ -11,9 +11,14 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    @password = current_user.passwords.create(password_params)
+    # This worked before adding roles
+    # @password = current_user.passwords.create(password_params)
+    # Defining a role as well
+    @password = Password.new(password_params)
+    @password.user_passwords.new(user: current_user, role: :owner)
 
-    if @password.persisted?
+    # if @password.persisted?
+    if @password.save
       flash[:success] = "Password successfully created"
       redirect_to @password
     else
